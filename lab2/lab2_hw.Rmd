@@ -1,6 +1,6 @@
 ---
 title: "Lab 2 Homework"
-author: "Netra Patel"
+author: "Please Add Your Name Here"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -14,10 +14,10 @@ Answer the following questions and complete the exercises in RMarkdown. Please e
 Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
 
 1. What is a vector in R?  
-ANS: A vector is type of data structure which stores the values of the data matrix. 
+ANS: A vector is type of data structure which stores the values of the data matrix.
 
 2. What is a data matrix in R?  
-ANS: It is a sequence that organizes data or objects into rows and columns. 
+ANS: It is a sequence that organizes data or objects into rows and columns.
 
 3. Below are data collected by three scientists (Jill, Steve, Susan in order) measuring temperatures of eight hot springs. Run this code chunk to create the vectors.  
 ```{r}
@@ -32,6 +32,7 @@ spring_8 <- c(36.80, 36.45, 33.15)
 ```
 
 4. Build a data matrix that has the springs as rows and the columns as scientists.  
+
 ```{r}
 spring_command <- c(spring_1,spring_2,spring_3,spring_4,spring_5,spring_6,spring_7,spring_8)
 spring_command
@@ -48,3 +49,63 @@ colnames(spring_matrix) <- scientists
 
 spring_matrix
 ```
+
+5. The names of the springs are 1.Bluebell Spring, 2.Opal Spring, 3.Riverside Spring, 4.Too Hot Spring, 5.Mystery Spring, 6.Emerald Spring, 7.Black Spring, 8.Pearl Spring. Name the rows and columns in the data matrix. Start by making two new vectors with the names, then use `colnames()` and `rownames()` to name the columns and rows.
+```{r}
+spring_title <- c("Bluebell Spring", "Opal Spring", "Riverside Spring", "Too Hot Spring", "Mystery Spring", "Emerald Spring", "Black Spring", "Pearl Spring")
+spring_title
+
+colnames(spring_matrix) <- scientists
+rownames(spring_matrix) <- spring_title
+spring_matrix
+```
+
+
+6. Calculate the mean temperature of all eight springs.
+```{r}
+mean_1 <- spring_matrix[1, ]
+mean(mean_1)
+mean_2 <- spring_matrix[2, ]
+mean(mean_2)
+mean_3 <- spring_matrix[3, ]
+mean(mean_3)
+mean_4 <- spring_matrix[4, ]
+mean(mean_4)
+mean_5 <- spring_matrix[5, ]
+mean(mean_5)
+mean_6 <- spring_matrix[6, ]
+mean(mean_6)
+mean_7 <- spring_matrix[7, ]
+mean(mean_7)
+mean_8 <- spring_matrix[8, ]
+mean(mean_8)
+```
+
+
+7. Add this as a new column in the data matrix.  
+```{r}
+new_col <- cbind(spring_matrix)
+new_col
+```
+
+
+8. Show Susan's value for Opal Spring only.
+```{r}
+spring_matrix[2,3]
+```
+
+
+9. Calculate the mean for Jill's column only.  
+```{r}
+mean_j <- spring_matrix[ ,1]
+mean(mean_j)
+```
+
+10. Use the data matrix to perform one calculation or operation of your interest.
+```{r}
+med_steve <- spring_matrix[ ,2]
+median(med_steve)
+```
+
+## Push your final code to GitHub!
+Please be sure that you check the `keep md` file in the knit preferences.  
