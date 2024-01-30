@@ -1,6 +1,6 @@
 ---
 title: "Lab 4 Homework"
-author: "Please Add Your Name Here"
+author: "Netra Patel"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -61,12 +61,10 @@ homerange$taxon <- as.factor(homerange$taxon)
 levels(homerange$taxon)
 ```
 
-
 ```{r}
 homerange$order <- as.factor(homerange$order)
 levels(homerange$order)
 ```
-
 
 **4. What taxa are represented in the `homerange` data frame? Make a new data frame `taxa` that is restricted to taxon, common name, class, order, family, genus, species.**  
 ```{r}
@@ -88,26 +86,47 @@ y
 
 **7. Make two new data frames, one which is restricted to carnivores and another that is restricted to herbivores.**  
 ```{r}
-
+c <- filter(homerange, trophic.guild == "carnivore")
+c
 ```
+
+```{r}
+h <- filter(homerange, trophic.guild == "herbivore")
+h
+```
+
 
 **8. Do herbivores or carnivores have, on average, a larger `mean.hra.m2`? Remove any NAs from the data.**  
 ```{r}
-
+mean_carnivore <- mean(c$mean.hra.m2, na.rm = T)
+mean_carnivore
 ```
 
 ```{r}
-
+mean_herbivore <- mean(h$mean.hra.m2, na.rm = T)
+mean_herbivore
 ```
 
 **9. Make a new dataframe `owls` that is limited to the mean mass, log10 mass, family, genus, and species of owls in the database. Which is the smallest owl? What is its common name? Do a little bit of searching online to see what you can learn about this species and provide a link below** 
-```{r}
 
+ANS: Its common name is Eurasian pygmy owl. It weighs 2 ounces and has a higher pitch than other species of owls.  
+The link for it is ("https://en.wikipedia.org/wiki/Eurasian_pygmy_owl")
+```{r}
+owls <- select(homerange, mean.mass.g, log10.mass, family, genus, species, order, common.name)
+owls%>%
+  arrange(desc(log10.mass))%>%
+  filter(order == "strigiformes")
 ```
 
-**10. As measured by the data, which bird species has the largest homerange? Show all of your work, please. Look this species up online and tell me about it!**.  
-```{r}
 
+**10. As measured by the data, which bird species has the largest homerange? Show all of your work, please. Look this species up online and tell me about it!**.
+ANS: The largest bird species is cheriway. This species weighs between 2 pounds to 3.5 pounds, they mainly feed on dead animals and breeds during summer or spring in southern hemisphere.
+
+```{r}
+largest <- select(homerange, species, common.name, family, class, mean.hra.m2)
+largest%>%
+  arrange(desc(mean.hra.m2))%>%
+  filter(class == "aves")
 ```
 
 ## Push your final code to GitHub!
