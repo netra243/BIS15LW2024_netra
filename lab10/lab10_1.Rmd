@@ -172,7 +172,7 @@ homerange %>%
 homerange %>% 
   filter(family=="salmonidae") %>% 
   ggplot(aes(x=common.name, y=log10.mass))+
-  geom_bar(stat="identity")
+  geom_bar(stat="identity") # geom_bar  for count
 ```
 
 ## Practice
