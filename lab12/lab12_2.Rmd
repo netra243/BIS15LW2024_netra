@@ -64,14 +64,14 @@ p + theme_linedraw()+
 ## Practice
 1. Build a scatterplot that compares `log10.mass` and `log10.preymass`. Color the points by `taxon`. Store this plot as object `q`.
 ```{r}
-q <- homerange%>%
-  ggplot(aes(x = log10.mass, y = log10.preymass, color = taxon))+
-  geom_point(na.rm = T)
+q <- homerange %>% 
+  ggplot(aes(x=log10.mass, y=log10.preymass, color=taxon))+
+  geom_point(na.rm=T)
 ```
 
 2. Use plot `q` but add the classic theme.
 ```{r}
-
+q + theme_classic()
 ```
 
 ## Legends
@@ -81,7 +81,7 @@ p+theme_linedraw()+
   theme(legend.position = "bottom",
         axis.text.x = element_text(angle = 60, hjust=1))+
   labs(title = "Observations by Taxon in Homerange Data",
-       x = NULL, # removes the label from the x-axis
+       x = NULL,
        y= "n",
        fill= "Trophic Guild")
 ```
@@ -112,7 +112,7 @@ p +
 ## Practice
 1. Use plot `q` and try the `theme_economist()` theme.
 ```{r}
-
+q+theme_economist()
 ```
 
 ## RColorBrewer
@@ -185,7 +185,8 @@ p+scale_fill_manual(values=my_palette)+
 ## Practice
 1. Keep using the `same `q` plot, but test out one of `paleteer` themes.
 ```{r}
-q + theme_classic()+ scale_fill_manual(values = my_palette)
+q+theme_classic()+
+  scale_colour_brewer(palette = "Paired")
 ```
 
 ## Faceting
@@ -202,7 +203,7 @@ There are other categorical variables that might be interesting to overlay. `fac
 homerange %>% 
   ggplot(aes(x=taxon, y=log10.mass))+
   geom_boxplot()+
-  facet_wrap(~trophic.guild, ncol=2)+             # 
+  facet_wrap(~trophic.guild, ncol=2)+
   theme(axis.text.x = element_text(angle = 60, hjust=1))
 ```
 
@@ -220,19 +221,25 @@ homerange %>%
 homerange %>% 
   ggplot(aes(x=taxon, y=log10.mass))+
   geom_boxplot()+
-  facet_grid(trophic.guild~thermoregulation)+   #allows to have more control
+  facet_grid(trophic.guild~thermoregulation)+    #allows to have more control
   theme(axis.text.x = element_text(angle = 60, hjust=1))
 ```
 
 ## Practice
 1. Use facet_wrap to compare the distribution of `log10.mass` by `thermoregulation`.
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x=log10.mass))+
+  geom_density(fill="steelblue", alpha=0.3)+
+  facet_wrap(~thermoregulation)
 ```
 
 2. Use facet_grid to compare the distribution of `log10.mass` by `locomotion`.
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x=log10.hra))+
+  geom_density(fill="steelblue", alpha=0.3)+
+  facet_grid(.~locomotion)
 ```
 
 ## Wrap-up  

@@ -100,17 +100,18 @@ deserts%>%
 ```
 
 ```{r}
-deserts%>%
-  filter(species_id == "DM" | species_id == "DS")%>%
-  mutate(year=as.factor(year))%>%
-  group_by(year, species_id)%>%
-  summarise(n = n(), .groups = 'keep')%>%
-  ggplot(aes(x = year, y = n, group = species_id, color = species_id))+geom_line()+
-  geom_point(shape = 2) + #you can experiment with shapes 
+deserts %>% 
+  filter(species_id=="DM" | species_id=="DS") %>% 
+  mutate(year = as.factor(year)) %>%
+  group_by(year, species_id) %>% 
+  summarise(n=n(), .groups='keep') %>% 
+  ggplot(aes(x=year, y=n, group=species_id, color=species_id))+
+  geom_line()+
+  geom_point(shape=2)+ # you can experiment with shapes
   theme(axis.text.x = element_text(angle = 60, hjust = 1))+
-  labs(title = "Number of Samples for Species DM & DS",
+  labs(title = "Number of samples for species DM & DS",
        x = "Year",
-       y = "n")
+       fill = "n")
 ```
 
 ## Histograms
@@ -147,7 +148,7 @@ homerange %>%
 ```
 
 I like to see both the histogram and the density curve so I often plot them together. Note that I assign the density plot a different color.
-```{r message=FALSE}
+```{r}
 homerange %>% 
   ggplot(aes(x=log10.mass)) +
   geom_histogram(aes(y = after_stat(density)), fill = "deepskyblue4", alpha = 0.4, color = "black")+
@@ -161,14 +162,14 @@ homerange %>%
 homerange%>%
   ggplot(aes(x = log10.hra))+          
   geom_histogram(color = "black", fill = "lavender")+
-  labs(title = "hra")
+  labs(title = "Distribution of Home Range")
 ```
 
 2. Now plot the same variable using `geom_density()`.
 ```{r}
 homerange%>%
   ggplot(aes(x = log10.hra))+          
-  geom_density(color = "black", fill = "lavender")+
+  geom_density(color = "black", alpha = 0.4, fill = "lavender")+
   labs(title = "hra")
 ```
 
@@ -196,12 +197,10 @@ summary(homerange$log10.mass)
 ```
 
 ```{r}
-homerange <- homerange %>%
-  mutate(mass_category = case_when(log10.mass <= 1.75 ~ "small",
-                                   log10.mass > 1.75 & log10.mass <= 2.75 ~ "medium",
-                                   log10.mass > 2.75 ~ "large"))%>%
-  ggplot(aes(x = mass_category, fill = trophic.guild))+
-  geom_bar(position = "dodge")
+homerange <- homerange %>% 
+             mutate(mass_category = case_when(log10.mass <= 1.75 ~ "small",
+                                              log10.mass > 1.75 & log10.mass <= 2.75 ~ "medium",
+                                              log10.mass > 2.75 ~ "large"))
 ```
 
 Here we check how the newly created body mass categories compare across `trophic.guild`. 
@@ -217,7 +216,8 @@ homerange %>%
 ## Practice
 1. Use case_when() to make a new column `range_category` that breaks down `log10.hra` into very small, small, medium, and large classes based on quartile.
 ```{r}
-quartiles <-  quantcut(homerange$log10.hra)
+library(gtools)
+quartiles <- quantcut(homerange$log10.hra)
 table(quartiles)
 ```
 
